@@ -1,0 +1,7 @@
+fluxgen.egg-info
+flux-install.sh
+env
+build
+dist
+.eggs
+__pycache__
