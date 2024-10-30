@@ -6,6 +6,7 @@ def main(args, parser, command, subparser):
     # Assemble options we know are important
     options = {
         "lead-broker": args.lead_broker,
+        "linkname": args.linkname,
         "command": command or None,
         "brokers": args.brokers,
         "subdomain": args.subdomain,

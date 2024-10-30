@@ -41,6 +41,11 @@ def get_parser():
         help="Brokers, either short hand or comma separated",
     )
     create.add_argument(
+        "--linkname",
+        help="Device name (e.g., eth0)",
+        default="eth0",
+    )
+    create.add_argument(
         "--subdomain",
         help="Subdomain for the workers (e.g., m.default.svc.cluster.local)",
     )
