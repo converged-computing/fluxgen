@@ -4,5 +4,5 @@ which micromamba || (
 
   # Install to root bin
   curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
-  mv ./micromamba /usr/local/bin/micromamba
+  which micromamba || whereis micromamba
 )
