@@ -4,7 +4,12 @@ import fluxgen.utils as utils
 
 def main(args, parser, command, subparser):
     # Assemble options we know are important
-    options = {"lead-broker": args.lead_broker, "command": command or None, "brokers": args.brokers}
+    options = {
+        "lead-broker": args.lead_broker,
+        "command": command or None,
+        "brokers": args.brokers,
+        "subdomain": args.subdomain,
+    }
 
     # This will raise an error if the member type (e.g., minicluster) is not known
     generator = create.FluxInstallScript()

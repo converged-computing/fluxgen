@@ -90,7 +90,7 @@ curve_cert = "${MAMBA_ROOT_PREFIX}/etc/flux/system/curve.cert"
 # ubuntu does not have eth0
 default_port = 8050
 default_bind = "tcp://${linkname}:%p"
-default_connect = "tcp://%h:%p"
+default_connect = "tcp://%h{% if subdomain %}.{{ subdomain }}{% endif %}:%p"
 
 # Rank 0 is the TBON parent of all brokers unless explicitly set with
 # parent directives.
