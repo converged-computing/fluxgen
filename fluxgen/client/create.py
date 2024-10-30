@@ -16,4 +16,6 @@ def main(args, parser, command, subparser):
         return
 
     print(f"Writing install script to {args.outfile}")
-    utils.write_file(result, args.outfile)
+
+    # Write to file, and ensure is made executable
+    utils.write_file(result, args.outfile, executable=True)
