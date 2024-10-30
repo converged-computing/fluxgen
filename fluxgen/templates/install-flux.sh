@@ -138,6 +138,10 @@ echo "🌀 flux start -o --config ${cfg} ${brokerOptions} flux submit --quiet --
 echo "🌀 flux broker --config-path ${cfg} ${brokerOptions}"
 {% endif %}
 
+worker_name=$(hostname)
+echo "This is ${worker_name}"
+cat /etc/hosts
+
 # Retry for failure
 while true
 do
