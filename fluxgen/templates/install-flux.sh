@@ -108,8 +108,8 @@ EOF
 mv /tmp/broker.toml ${MAMBA_ROOT_PREFIX}/etc/flux/system/conf.d/broker.toml
 
 # If we don't do this, fails on too many open files
-sysctl fs.inotify.max_user_instances=8192
-sysctl fs.inotify.max_user_watches=524288
+# sysctl fs.inotify.max_user_instances=8192
+# sysctl fs.inotify.max_user_watches=524288
 
 # Write a small script that makes it easy to connect
 cat <<EOF | tee /flux-connect.sh
