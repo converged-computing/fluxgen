@@ -1,5 +1,6 @@
 import json
 import os
+import stat
 import tempfile
 from contextlib import contextmanager
 
@@ -22,9 +23,14 @@ def read_file(filename):
     return content
 
 
-def write_file(content, filename):
+def write_file(content, filename, executable=False):
     with open(filename, "w") as fd:
         fd.write(content)
+
+    # Make the file executable
+    if executable:
+        st = os.stat(filename)
+        os.chmod(filename, st.st_mode | stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH)
 
 
 def read_yaml(filename):

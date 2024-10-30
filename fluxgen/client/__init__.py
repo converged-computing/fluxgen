@@ -41,6 +41,15 @@ def get_parser():
         help="Brokers, either short hand or comma separated",
     )
     create.add_argument(
+        "--linkname",
+        help="Device name (e.g., eth0)",
+        default="eth0",
+    )
+    create.add_argument(
+        "--subdomain",
+        help="Subdomain for the workers (e.g., m.default.svc.cluster.local)",
+    )
+    create.add_argument(
         "--outfile",
         help="Name for install file (defaults to flux-install.sh)",
         default="flux-install.sh",

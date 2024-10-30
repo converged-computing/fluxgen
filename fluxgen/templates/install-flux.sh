@@ -90,7 +90,7 @@ curve_cert = "${MAMBA_ROOT_PREFIX}/etc/flux/system/curve.cert"
 # ubuntu does not have eth0
 default_port = 8050
 default_bind = "tcp://${linkname}:%p"
-default_connect = "tcp://%h:%p"
+default_connect = "tcp://%h{% if subdomain %}.{{ subdomain }}{% endif %}:%p"
 
 # Rank 0 is the TBON parent of all brokers unless explicitly set with
 # parent directives.
@@ -108,8 +108,8 @@ EOF
 mv /tmp/broker.toml ${MAMBA_ROOT_PREFIX}/etc/flux/system/conf.d/broker.toml
 
 # If we don't do this, fails on too many open files
-sysctl fs.inotify.max_user_instances=8192
-sysctl fs.inotify.max_user_watches=524288
+# sysctl fs.inotify.max_user_instances=8192
+# sysctl fs.inotify.max_user_watches=524288
 
 # Write a small script that makes it easy to connect
 cat <<EOF | tee /flux-connect.sh
@@ -137,6 +137,10 @@ echo "🌀 flux start -o --config ${cfg} ${brokerOptions} flux submit --quiet --
 {% else %}
 echo "🌀 flux broker --config-path ${cfg} ${brokerOptions}"
 {% endif %}
+
+worker_name=$(hostname)
+echo "This is ${worker_name}"
+cat /etc/hosts
 
 # Retry for failure
 while true
