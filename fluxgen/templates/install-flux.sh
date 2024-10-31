@@ -146,7 +146,7 @@ cat /etc/hosts
 while true
 do
   {% if lead_broker and command != "" %}
-  ${MAMBA_ROOT_PREFIX}/flux start -o --config ${cfg} ${brokerOptions} flux submit --quiet --watch {{ command }}
+  ${MAMBA_ROOT_PREFIX}/bin/flux start -o --config ${cfg} ${brokerOptions} ${MAMBA_ROOT_PREFIX}/bin/flux submit --quiet --watch {{ command }}
   {% else %}
   ${MAMBA_ROOT_PREFIX}/bin/flux broker --config-path ${cfg} ${brokerOptions}
   {% endif %}
