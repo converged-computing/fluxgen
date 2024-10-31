@@ -123,8 +123,7 @@ chmod +x /flux-connect.sh
 # systemd support.
 brokerOptions="-Scron.directory=${MAMBA_ROOT_PREFIX}/etc/flux/system/cron.d \
 -Stbon.fanout=256 \
--Srundir=/var/run/flux \
--Sbroker.rc2_none \
+-Srundir=/var/run/flux {% if lead_broker and command != "" %}{% else %}-Sbroker.rc2_none{% endif %} \
 -Sstatedir=${MAMBA_ROOT_PREFIX}/etc/flux/system \
 -Slocal-uri=local:///var/run/flux/local \
 -Slog-stderr-level=6 \
@@ -146,11 +145,16 @@ cat /etc/hosts
 while true
 do
   {% if lead_broker and command != "" %}
-  ${MAMBA_ROOT_PREFIX}/flux start -o --config ${cfg} ${brokerOptions} flux submit --quiet --watch {{ command }}
+  ${MAMBA_ROOT_PREFIX}/bin/flux start -o --config ${cfg} ${brokerOptions} ${MAMBA_ROOT_PREFIX}/bin/flux submit --quiet --watch {{ command }}
   {% else %}
   ${MAMBA_ROOT_PREFIX}/bin/flux broker --config-path ${cfg} ${brokerOptions}
   {% endif %}
-  echo "Return value for follower worker is ${retval}"
+  retval=$?
+  echo "Return value for follower worker is $retval"
+  if [[ "${retval}" -eq 0 ]]; then
+     echo "🤓 Success! Cleaning up"
+     exit 0
+  fi
   echo "😪 Sleeping 15s to try again..."
   sleep 15
 done
