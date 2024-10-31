@@ -149,7 +149,12 @@ do
   {% else %}
   ${MAMBA_ROOT_PREFIX}/bin/flux broker --config-path ${cfg} ${brokerOptions}
   {% endif %}
-  echo "Return value for follower worker is $?"
+  retval=$?
+  echo "Return value for follower worker is $retval"
+  if [[ "${retval}" -eq 0 ]]; then
+     echo "🤓 Success! Cleaning up"
+     exit 0
+  fi
   echo "😪 Sleeping 15s to try again..."
   sleep 15
 done
