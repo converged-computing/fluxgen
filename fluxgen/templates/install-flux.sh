@@ -123,8 +123,7 @@ chmod +x /flux-connect.sh
 # systemd support.
 brokerOptions="-Scron.directory=${MAMBA_ROOT_PREFIX}/etc/flux/system/cron.d \
 -Stbon.fanout=256 \
--Srundir=/var/run/flux \
--Sbroker.rc2_none \
+-Srundir=/var/run/flux {% if lead_broker and command != "" %}{% else %}-Sbroker.rc2_none{% fi %} \
 -Sstatedir=${MAMBA_ROOT_PREFIX}/etc/flux/system \
 -Slocal-uri=local:///var/run/flux/local \
 -Slog-stderr-level=6 \
