@@ -19,7 +19,7 @@ def get_parser():
         action="store_true",
     )
 
-    description = "actions for Ensemble Python"
+    description = "actions for Fluxgen"
     subparsers = parser.add_subparsers(
         help="actions",
         title="actions",
