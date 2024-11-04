@@ -36,6 +36,11 @@ def get_parser():
         description="create an install and configuration script for flux",
         formatter_class=argparse.RawTextHelpFormatter,
     )
+    install = subparsers.add_parser(
+        "install",
+        description="install flux core and sched (no configuration)",
+        formatter_class=argparse.RawTextHelpFormatter,
+    )
     create.add_argument(
         "--brokers",
         help="Brokers, either short hand or comma separated",
@@ -50,22 +55,23 @@ def get_parser():
         help="Subdomain for the workers (e.g., m.default.svc.cluster.local)",
     )
     create.add_argument(
-        "--outfile",
-        help="Name for install file (defaults to flux-install.sh)",
-        default="flux-install.sh",
-    )
-    create.add_argument(
-        "--dry-run",
-        help="Preview the install script (don't write to file)",
-        default=False,
-        action="store_true",
-    )
-    create.add_argument(
         "--lead-broker",
         help="Is this the lead broker?",
         default=False,
         action="store_true",
     )
+    for command in [create, install]:
+        command.add_argument(
+            "--outfile",
+            help="Name for install file (defaults to flux-install.sh)",
+            default="flux-install.sh",
+        )
+        command.add_argument(
+            "--dry-run",
+            help="Preview the install script (don't write to file)",
+            default=False,
+            action="store_true",
+        )
     return parser
 
 
@@ -105,6 +111,8 @@ def run_fluxgen():
     # Does the user want a shell?
     if args.command == "create":
         from .create import main
+    if args.command == "install":
+        from .install import main
 
     # Pass on to the correct parser
     return_code = 0
