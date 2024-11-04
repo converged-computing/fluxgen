@@ -11,6 +11,26 @@ We will run this in the context of a JobSet, with the goal to generate the scrip
 
 ## Usage
 
+Fluxgen has two modes. If you use **create** you will create an install script that installs flux, creates configuration assets,
+_and_ starts the brokers. if you use **install** it will just generate the install script.
+
+### Install
+
+Here is how to generate an install script.
+
+```bash
+# Preview in terminal
+fluxgen install --dry-run
+
+# Write to file
+fluxgen install
+```
+```console
+Writing install script to flux-install.sh
+```
+
+### Create
+
 Here is an example for using fluxgen to generate an install script for a worker.
 
 ```bash

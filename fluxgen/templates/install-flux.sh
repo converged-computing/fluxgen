@@ -26,7 +26,7 @@ micromamba activate base
 # be a specific version, but I don't see need for that yet.
 micromamba install --yes flux-core flux-sched
 
-# Prepare resource system directory
+{% if not install_only %}# Prepare resource system directory
 mkdir -p ${MAMBA_ROOT_PREFIX}/etc/flux/system/conf.d
 mkdir -p ${MAMBA_ROOT_PREFIX}/etc/flux/system/cron.d
 mkdir -p ${MAMBA_ROOT_PREFIX}/etc/flux/system
@@ -157,4 +157,4 @@ do
   fi
   echo "😪 Sleeping 15s to try again..."
   sleep 15
-done
+done{% endif %}
